@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://b1xq7rn4lceif"]
+
+[ext_resource type="Script" uid="uid://cnss3qrsti2rh" path="res://scripts/ui/lore.gd" id="1_3vt25"]
+[ext_resource type="Texture2D" uid="uid://dat0yy566sln2" path="res://resources/title_screen.png" id="2_od35v"]
+[ext_resource type="Theme" uid="uid://cd30o2j1vebgg" path="res://resources/menu_theme.tres" id="3_grrt7"]
+
+[node name="Lore" type="Control" unique_id=596426541]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3vt25")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1481720971]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 1921.0
+offset_bottom = 1080.0
+texture = ExtResource("2_od35v")
+
+[node name="Heading" type="RichTextLabel" parent="." unique_id=1024593592]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_font_sizes/normal_font_size = 90
+text = "LORE"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Text" type="RichTextLabel" parent="." unique_id=1582631294]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_grrt7")
+text = "very evil space missiles in dense rocky asteroid field under a harsh red sun
+
+the missiles are programmed to search (yellow), track remnant heat signatures (dark red) and kill (bright red) 
+foolishly, they telegraph this state with a big light on their nose
+
+a light atmosphere and complex, procedurally generated (what) terrain mean traditional spacecraft won't work
+
+the only solution: a French fighter aircraft from the 60s with high manoeuvrability due to its wide delta wing configuration
+
+this makes sense"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=1575905705]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -93.0
+offset_top = -130.0
+offset_right = 89.0
+offset_bottom = -84.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_grrt7")
+text = "MAIN MENU"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

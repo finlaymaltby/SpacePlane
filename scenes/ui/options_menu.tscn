@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://bpna8pal48pxv"]
+
+[ext_resource type="Script" uid="uid://bm7cwr5b4tsjx" path="res://scripts/ui/options_menu.gd" id="1_caj0f"]
+[ext_resource type="Texture2D" uid="uid://dat0yy566sln2" path="res://resources/title_screen.png" id="2_yjqj2"]
+[ext_resource type="Theme" uid="uid://cd30o2j1vebgg" path="res://resources/menu_theme.tres" id="3_imaij"]
+
+[node name="OptionsMenu" type="Control" unique_id=1593718515]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_caj0f")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1997651489]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_yjqj2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=461592790]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -139.0
+offset_right = 141.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_imaij")
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=467192223]
+layout_mode = 2
+theme = ExtResource("3_imaij")
+text = "SENSITIVITY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer" unique_id=1061295832]
+layout_mode = 2
+theme = ExtResource("3_imaij")
+min_value = 1.0
+value = 10.0
+ticks_on_borders = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=724452679]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -197.5
+offset_right = 197.5
+offset_bottom = 203.0
+grow_horizontal = 2
+theme = ExtResource("3_imaij")
+theme_override_font_sizes/normal_font_size = 16
+text = "OPTIONS"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=1000597235]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -93.0
+offset_top = -130.0
+offset_right = 89.0
+offset_bottom = -84.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("3_imaij")
+text = "MAIN MENU"
+
+[connection signal="drag_ended" from="VBoxContainer/HSlider" to="." method="_on_h_slider_drag_ended"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

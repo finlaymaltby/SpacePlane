@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://km3owlpxj3i4"]
+
+[ext_resource type="Script" uid="uid://6ytrh1gmnmvk" path="res://scripts/scent_marker.gd" id="1_rwm4a"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jtbgy"]
+
+[node name="ScentMarker" type="StaticBody3D" unique_id=1277982048]
+collision_mask = 0
+script = ExtResource("1_rwm4a")
+
+[node name="Timer" type="Timer" parent="." unique_id=1671868344]
+one_shot = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=582443475]
+shape = SubResource("SphereShape3D_jtbgy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1743587241]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

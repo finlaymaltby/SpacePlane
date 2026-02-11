@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://dag2s6ae7eg3k"]
+
+[ext_resource type="Script" uid="uid://dub3f05ihc30c" path="res://scripts/player.gd" id="1_fkybt"]
+[ext_resource type="PackedScene" uid="uid://7xquvvbuhyc6" path="res://dassault-mirage iiie/source/dassault_mirage_iiie_v2.glb" id="2_x3wgy"]
+[ext_resource type="Script" uid="uid://cgitr7w6187nk" path="res://scripts/ui/thrust_slider.gd" id="3_3smsa"]
+[ext_resource type="Script" uid="uid://b328b3uvguuw1" path="res://scripts/plane_cam.gd" id="4_8erm5"]
+[ext_resource type="AudioStream" uid="uid://fvvtvw5w8gft" path="res://resources/jet-engine-6753.mp3" id="5_f1ek2"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_accrw"]
+radius = 1.0138
+height = 15.4756
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4wbly"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2ngr2"]
+points = PackedVector3Array(4.5, -0.6, 4.5, -4.5, -0.6, 4.5, 0, -0.6, -3.7, 0, -0.6, 0)
+
+[node name="Player" type="CharacterBody3D" unique_id=1367376606]
+collision_mask = 10
+motion_mode = 1
+script = ExtResource("1_fkybt")
+
+[node name="model?" type="Node3D" parent="." unique_id=1681822067]
+transform = Transform3D(1.7, 0, 0, 0, 1.7, 0, 0, 0, 1.7, 0, 0, 0)
+
+[node name="dassault_mirage_iiie_v2" parent="model?" unique_id=1514293820 instance=ExtResource("2_x3wgy")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.27, -0.61191)
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=1054803346]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.833589)
+shape = SubResource("CapsuleShape3D_accrw")
+
+[node name="PlaneUI" type="CanvasLayer" parent="." unique_id=594910259]
+
+[node name="Thrust" type="HBoxContainer" parent="PlaneUI" unique_id=122016192]
+material = SubResource("CanvasItemMaterial_4wbly")
+offset_left = 1077.0
+offset_top = 498.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="ThrustSlider" type="VSlider" parent="PlaneUI/Thrust" unique_id=993426935]
+layout_mode = 2
+focus_mode = 0
+max_value = 1.0
+step = 0.0
+script = ExtResource("3_3smsa")
+
+[node name="ThrustLabel" type="Label" parent="PlaneUI/Thrust" unique_id=432137030]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Hi!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfoDisplay" type="VBoxContainer" parent="PlaneUI" unique_id=1530377983]
+offset_right = 147.0
+offset_bottom = 166.0
+
+[node name="Speed" type="Label" parent="PlaneUI/InfoDisplay" unique_id=1925080306]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "100
+"
+
+[node name="ForwardSpeed" type="Label" parent="PlaneUI/InfoDisplay" unique_id=1352640876]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "100
+"
+
+[node name="FPS" type="Label" parent="PlaneUI/InfoDisplay" unique_id=1328497141]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "100
+"
+
+[node name="ScentId" type="Label" parent="PlaneUI/InfoDisplay" unique_id=1867769524]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "100
+"
+
+[node name="IsInside" type="Label" parent="PlaneUI/InfoDisplay" unique_id=382118294]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "100
+"
+
+[node name="WingCollision" type="CollisionShape3D" parent="." unique_id=1606751960]
+shape = SubResource("ConvexPolygonShape3D_2ngr2")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=482727637]
+script = ExtResource("4_8erm5")
+
+[node name="CameraBase" type="Node3D" parent="CameraPivot" unique_id=156246546]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/CameraBase" unique_id=847636092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+current = true
+far = 10000.0
+
+[node name="AudioListener3D" type="AudioListener3D" parent="CameraPivot/CameraBase" unique_id=454456456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+current = true
+
+[node name="EngineLight" type="SpotLight3D" parent="." unique_id=2129372411]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 5.26657)
+light_color = Color(1, 0.328125, 0, 1)
+light_energy = 100.0
+spot_range = 200.0
+spot_angle = 31.5779
+
+[node name="ScentTimer" type="Timer" parent="." unique_id=1731717432]
+wait_time = 3.0
+autostart = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=278490114]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+stream = ExtResource("5_f1ek2")
+autoplay = true
+doppler_tracking = 2
+
+[connection signal="timeout" from="ScentTimer" to="." method="_on_scent_timer_timeout"]

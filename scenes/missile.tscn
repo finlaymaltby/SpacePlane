@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://2td2cakoki6b"]
+
+[ext_resource type="Script" uid="uid://c4ndsv68cewas" path="res://scripts/missile.gd" id="1_5epdn"]
+[ext_resource type="AudioStream" uid="uid://k56fkyio3trj" path="res://resources/missile.mp3" id="4_tewhd"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gtnst"]
+radius = 1.5
+height = 15.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_35udt"]
+albedo_color = Color(0.27, 0.27, 0.27, 1)
+metallic = 1.0
+roughness = 0.25
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_14wlb"]
+radius = 1.5
+height = 15.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pbbx5"]
+height = 500.0
+radius = 332.887
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6cx5e"]
+metallic = 1.0
+roughness = 0.33
+
+[sub_resource type="SphereMesh" id="SphereMesh_35udt"]
+material = SubResource("StandardMaterial3D_6cx5e")
+radius = 1.0
+height = 2.0
+
+[node name="Missile" type="CharacterBody3D" unique_id=2138835199]
+collision_layer = 2
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_5epdn")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=259824074]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_gtnst")
+surface_material_override/0 = SubResource("StandardMaterial3D_35udt")
+
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=1534104851]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_14wlb")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=1804647021]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -250)
+collision_layer = 2
+
+[node name="DetectCollision" type="CollisionShape3D" parent="DetectionArea" unique_id=2008761483]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_pbbx5")
+
+[node name="Searchlight" type="MeshInstance3D" parent="." unique_id=1168336713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.5)
+layers = 2
+mesh = SubResource("SphereMesh_35udt")
+
+[node name="SearchlightLight" type="SpotLight3D" parent="." unique_id=1045089995]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.5)
+light_color = Color(1, 0.12156863, 0.12156863, 1)
+light_energy = 2.0
+distance_fade_enabled = true
+distance_fade_begin = 1000.0
+distance_fade_length = 100.0
+spot_range = 1666.82
+spot_attenuation = 0.3
+spot_angle = 20.0
+spot_angle_attenuation = 0.052556
+
+[node name="Ray" type="RayCast3D" parent="." unique_id=113415634]
+collision_mask = 5
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0.960938, 0, 1)
+debug_shape_thickness = 5
+
+[node name="Timer" type="Timer" parent="." unique_id=1922659106]
+wait_time = 30.0
+one_shot = true
+autostart = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=193263973]
+stream = ExtResource("4_tewhd")
+volume_db = 6.0
+unit_size = 50.0
+max_db = 6.0
+autoplay = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
