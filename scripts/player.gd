@@ -79,17 +79,16 @@ func _physics_process(delta: float) -> void:
 	rot_vel -= rot_vel * rot_accel/rot_speed * delta
 	apply_rotation(rot_vel * delta)
 	
-	$PlaneUI/InfoDisplay/Speed.text = str(round(3.6*velocity.length()))
-	$PlaneUI/InfoDisplay/ForwardSpeed.text = str(round(3.6*velocity.dot(-basis.z)))
-	$PlaneUI/InfoDisplay/FPS.text = str(round(1/delta))
-	$PlaneUI/InfoDisplay/ScentId.text = str(scent_id)
-	$EngineLight.light_energy = thrust_light_energy * thrust
-	$PlaneUI/InfoDisplay/IsInside.text = str(%Terrain.is_inside(global_position))
+	update_display(delta)
+	
 	$AudioStreamPlayer3D.volume_db = log(thrust)*2 - 10
 	move_and_slide()
 
+func update_display(delta: float) -> void:
+	$PlaneUI/InfoDisplay/Speed.text = "Speed: " + str(round(3.6*velocity.length()))
+	$PlaneUI/InfoDisplay/FPS.text = "FPS: " + str(round(1/delta))
 
-func apply_rotation(rot : Vector3):
+func apply_rotation(rot: Vector3):
 	rotate(basis.z, deg_to_rad(rot.z))
 	rotate(basis.x, deg_to_rad(rot.x))
 	rotate(basis.y, deg_to_rad(rot.y))

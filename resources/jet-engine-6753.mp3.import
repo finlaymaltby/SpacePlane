@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/jet-engine-6753.mp3-91ede63dc8054b36de65b3dd7
 [params]
 
 loop=true
-loop_offset=0
-bpm=0
+loop_offset=0.4
+bpm=0.0
 beat_count=0
 bar_beats=4

@@ -34,10 +34,15 @@ shape = SubResource("CapsuleShape3D_accrw")
 
 [node name="Thrust" type="HBoxContainer" parent="PlaneUI" unique_id=122016192]
 material = SubResource("CanvasItemMaterial_4wbly")
-offset_left = 1077.0
-offset_top = 498.0
-offset_right = 1152.0
-offset_bottom = 648.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -150.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="ThrustSlider" type="VSlider" parent="PlaneUI/Thrust" unique_id=993426935]
 layout_mode = 2
@@ -63,25 +68,7 @@ theme_override_font_sizes/font_size = 30
 text = "100
 "
 
-[node name="ForwardSpeed" type="Label" parent="PlaneUI/InfoDisplay" unique_id=1352640876]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "100
-"
-
 [node name="FPS" type="Label" parent="PlaneUI/InfoDisplay" unique_id=1328497141]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "100
-"
-
-[node name="ScentId" type="Label" parent="PlaneUI/InfoDisplay" unique_id=1867769524]
-layout_mode = 2
-theme_override_font_sizes/font_size = 30
-text = "100
-"
-
-[node name="IsInside" type="Label" parent="PlaneUI/InfoDisplay" unique_id=382118294]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "100

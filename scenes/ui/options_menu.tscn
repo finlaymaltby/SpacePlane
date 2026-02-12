@@ -58,11 +58,12 @@ offset_right = 197.5
 offset_bottom = 203.0
 grow_horizontal = 2
 theme = ExtResource("3_imaij")
-theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/normal_font_size = 70
 text = "OPTIONS"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
+horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button" type="Button" parent="." unique_id=1000597235]
@@ -73,9 +74,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -93.0
-offset_top = -130.0
+offset_top = -342.0
 offset_right = 89.0
-offset_bottom = -84.0
+offset_bottom = -296.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("3_imaij")
