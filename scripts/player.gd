@@ -1,27 +1,27 @@
 class_name Player extends CharacterBody3D
 
 # fastest speed horizontally m/s
-@export var max_speed : float = 1390.47 / 3.6
-@export var accel : float = 60  #ms^-2
-@export var wing_drag : float = 0.02
-@export var tail_drag : float = 0.01
+@export var max_speed: float = 1390.47 / 3.6
+@export var accel: float = 60  #ms^-2
+@export var wing_drag: float = 0.02
+@export var tail_drag: float = 0.01
 
-#degrees per second
-@export var yaw_speed : float = 30
-@export var pitch_speed : float = 100
-@export var roll_speed : float = 120
+# degrees per second
+@export var yaw_speed: float = 30
+@export var pitch_speed: float = 100
+@export var roll_speed: float = 120
 
-# values :
-@onready var drag : float = accel/max_speed 
-var thrust : float = 1
-var rot_vel : Vector3
-var rot_speed : Vector3
-var rot_accel : Vector3 
-var scent_id : int = 0
+
+@onready var drag: float = accel/max_speed 
+var thrust: float = 1
+var rot_vel: Vector3
+var rot_speed: Vector3
+var rot_accel: Vector3 
+var scent_id: int = 0
 
 # extern stuff
 @onready var thrust_light_energy = $EngineLight.light_energy
-@onready var scent_marker : PackedScene = preload("res://scenes/scent_marker.tscn")
+@onready var scent_marker: PackedScene = preload("res://scenes/scent_marker.tscn")
 
 func get_random_position() -> Vector3:
 	var pos = Vector3(randf_range(-5000, 5000),
@@ -30,10 +30,11 @@ func get_random_position() -> Vector3:
 	return pos
 
 func reset() -> void: 
-	$ScentTimer.start()
+	# initial velocity
 	velocity = Vector3.FORWARD * 50
 	rotation = Vector3.ZERO
 	
+	# initialise position
 	global_position = get_random_position()
 	while %Terrain.is_inside(global_position):
 		global_position = get_random_position()
@@ -47,6 +48,7 @@ func reset() -> void:
 		if child is ScentMarker:
 			child.queue_free()
 	
+	$ScentTimer.start()
 	scent_id = 0
 	
 func get_rotations(delta) -> void:
@@ -63,6 +65,7 @@ func get_rotations(delta) -> void:
 
 func _physics_process(delta: float) -> void:
 	thrust = $PlaneUI/Thrust/ThrustSlider.value
+
 	#thrust
 	velocity += -basis.z * accel * thrust * delta
 	#forward drag
@@ -96,7 +99,7 @@ func apply_rotation(rot: Vector3):
 func _on_scent_timer_timeout() -> void:
 	var scent = scent_marker.instantiate()
 	scent.id = scent_id
-	get_parent().add_child(scent)
+	add_child(scent)
 	scent.global_position = global_position
 	scent_id += 1
 

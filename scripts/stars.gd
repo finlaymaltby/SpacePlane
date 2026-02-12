@@ -1,11 +1,10 @@
 extends Node3D
 
-const num_stars = 1000
-const dist = 10000
+const num_stars: int = 1000
+const dist: float = 10000.0
 
 @onready var material: StandardMaterial3D = preload("res://resources/star_material.tres")
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var rng := RandomNumberGenerator.new()
 	

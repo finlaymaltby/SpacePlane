@@ -1,6 +1,6 @@
 class_name Game extends Node
 
-@onready var gameoverScene : PackedScene = preload("res://scenes/ui/gameover_menu.tscn")
+@onready var gameoverScene: PackedScene = preload("res://scenes/ui/gameover_menu.tscn")
 
 func end_game() -> void:
 	reset()

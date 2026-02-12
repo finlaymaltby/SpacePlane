@@ -1,33 +1,33 @@
 extends MeshInstance3D
 
-#params
-#no of voxels along each axis
-@export var detail : int = 8
-@export_range(-1,1) var isolevel : float = 0.1
-@export var x_width : int = 1000
-@export var y_height : int = 1000
-@export var z_length : int = 1000
-@export var min_noise_size : float = 80
-@export var max_noise_size : float = 200
+# params
+# no of voxels along each axis
+@export var detail: int = 8
+@export_range(-1,1) var isolevel: float = 0.1
+@export var x_width: int = 1000
+@export var y_height: int = 1000
+@export var z_length: int = 1000
+@export var min_noise_size: float = 80
+@export var max_noise_size: float = 200
 
-@export var noise_offset_x : float = 5000
+@export var noise_offset_x: float = 5000
 @onready var resolution: int = detail * 8
-@onready var min_noise_scale : float = 1/min_noise_size
-@onready var max_noise_scale : float = 1/max_noise_size
+@onready var min_noise_scale: float = 1/min_noise_size
+@onready var max_noise_scale: float = 1/max_noise_size
 
 # shader things
-var rd : RenderingDevice
-var shader : RID
-var tri_buffer : RID
-var param_buffer : RID
-var pipeline : RID
-var uniform_set : RID
+var rd: RenderingDevice
+var shader: RID
+var tri_buffer: RID
+var param_buffer: RID
+var pipeline: RID
+var uniform_set: RID
 
-#make da mesh
-var vertices : PackedVector3Array = []
-var normals : PackedVector3Array = []
+# make da mesh
+var vertices: PackedVector3Array = []
+var normals: PackedVector3Array = []
 
-@onready var mesh_created : bool = false
+@onready var mesh_created: bool = false
 
 func _ready() -> void:
 	init_shader()
@@ -42,7 +42,7 @@ func init_shader():
 	shader = rd.shader_create_from_spirv(shader_spirv)
 	
 	var max_tris_per_voxel := 5
-	var num_voxels : int = pow(resolution, 3)
+	var num_voxels: int = pow(resolution, 3)
 	var floats_per_tri := 16
 	var bytes_per_float := 4
 	var tri_buffer_size := bytes_per_float * floats_per_tri * max_tris_per_voxel * num_voxels
@@ -98,13 +98,13 @@ func retreive():
 		normals.append(Vector3(tri_data[i+12], tri_data[i+13], tri_data[i+14]))
 
 func make_uvs() -> PackedVector2Array:
-	var uvs : PackedVector2Array = []
+	var uvs: PackedVector2Array = []
 	for vert in vertices:
 		uvs.append(Vector2(0.5 + atan2(vert.x, vert.z)/(2*PI), vert.y/y_height))
 	return uvs
 	
 func make_uv2s() -> PackedVector2Array:
-	var uv2s : PackedVector2Array = []
+	var uv2s: PackedVector2Array = []
 	for vert in vertices:
 		uv2s.append(Vector2(vert.x/x_width,vert.z/z_length))
 	
@@ -145,7 +145,7 @@ func cleanup_gpu() -> void:
 	rd.free()
 	rd = null
 
-#WARNINg VERY HACKY
+# Warning: hacky
 func is_inside(pos: Vector3) -> bool:
 	if not mesh_created:
 		return true
@@ -163,13 +163,13 @@ func is_inside(pos: Vector3) -> bool:
 	ray.target_position = 10000 * dir + Vector3(0, 5000, 0) 
 	ray.hit_back_faces = true
 	ray.force_raycast_update()
-	var point : Vector3 = ray.get_collision_point()
+	var point: Vector3 = ray.get_collision_point()
 	if not point:
 		breakpoint
 	
 	ray.hit_back_faces = false
 	ray.force_raycast_update()
-	var point2 : Vector3 = ray.get_collision_point()
+	var point2: Vector3 = ray.get_collision_point()
 	ray.queue_free()
 	if not point2:
 		return true

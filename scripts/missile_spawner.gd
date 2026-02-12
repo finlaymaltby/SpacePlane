@@ -1,10 +1,11 @@
 extends Node3D
 
 const max_num_missiles = 100
-@onready var missileScene : PackedScene = preload("res://scenes/missile.tscn")
 
-var num_missiles : int = 0
-var missile_id : int = 0
+var num_missiles: int = 0
+var missile_id: int = 0
+
+@onready var missileScene: PackedScene = preload("res://scenes/missile.tscn")
 	
 func reset() -> void:
 	num_missiles = 0
@@ -21,7 +22,7 @@ func get_random_pos() -> Vector3:
 func spawn_missile() -> void:
 	if not %Terrain.mesh_created:
 		return
-	var missile : CharacterBody3D = missileScene.instantiate()
+	var missile: CharacterBody3D = missileScene.instantiate()
 	missile.name = "missile" + str(missile_id)
 	missile.id = missile_id
 	add_child(missile)
@@ -32,7 +33,6 @@ func spawn_missile() -> void:
 	num_missiles += 1
 	missile_id += 1
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if num_missiles < max_num_missiles:
 		spawn_missile()
